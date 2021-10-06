@@ -1,6 +1,6 @@
 {
-    "name": "fuse",
-    "version": "10.0.0",
+    "name": "wrkup",
+    "version": "1.0",
     "license": "https://themeforest.net/licenses/terms/regular",
     "scripts": {
         "ng": "ng",

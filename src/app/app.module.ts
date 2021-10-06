@@ -1,3 +1,8 @@
+import { Error404Module } from './main/errors/404/error-404.module';
+import { DashboardModule } from './main/dashboard/dashboard.module';
+import { AuthGuardService } from './main/service/auth-guard.service';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginModule } from './main/auth/login/login.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,13 +22,7 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
-
-const appRoutes: Routes = [
-    {
-        path      : '**',
-        redirectTo: 'sample'
-    }
-];
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -33,7 +32,8 @@ const appRoutes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        RouterModule.forRoot(appRoutes),
+        RouterModule,
+        AppRoutingModule,
 
         TranslateModule.forRoot(),
 
@@ -53,11 +53,18 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        SampleModule
+        SampleModule,
+        LoginModule,
+        DashboardModule,
+        Error404Module
     ],
     bootstrap   : [
         AppComponent
-    ]
+    ],
+    providers: [
+        {provide: LocationStrategy, useClass: PathLocationStrategy},
+        AuthGuardService
+    ],
 })
 export class AppModule
 {
